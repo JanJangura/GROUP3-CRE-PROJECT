@@ -62,22 +62,61 @@ namespace GROUP3_CRE_PROJECT
             switch (e.Result.Text.ToString())
             {
                 case "hello":
-                    ss.SpeakAsync("Hello Alex");
-                    break;
+                {
+                   ss.SpeakAsync("Hello Alex");
+                   break;
+                }
                 case "how are you":
-                    ss.SpeakAsync("I am doing great Alex, how about you");
-                    break;
+                {
+                   ss.SpeakAsync("I am doing great Alex, how about you");
+                   break;
+                }
                 case "what is the current time":
-                    ss.SpeakAsync("current time is " + DateTime.Now.ToLongTimeString());
-                    break;
+                {
+                        ss.SpeakAsync("current time is " + DateTime.Now.ToLongTimeString());
+                        break;
+                }
                 case "open chrome":
-                    Process.Start("chrome", "https://www.google.com/");
-                    break;
+                {
+                        Process.Start("chrome", "https://www.google.com/");
+                        break;
+                }
                 case "close":
+                {
                     Application.Exit();
                     break;
+                }
+                //case "activate":
+                //{
+                //        ss.SpeakAsync("Enter city");
+
+                //        enterLocation(sender, e);
+                //        break;
+                //}
+                default:
+                {
+                        enterLocation(sender, e);
+                        break;
+                }
             }
             textBox1.Text += e.Result.Text.ToString() + Environment.NewLine;
+        }
+
+
+        private void enterLocation(object sender, SpeechRecognizedEventArgs e)
+        {
+            string city = e.Result.Text.ToString();
+
+
+            StringBuilder queryAddress = new StringBuilder();
+            queryAddress.Append("http://www.google.com/maps?q=");
+
+            if(city != string.Empty)
+            {
+                queryAddress.Append(city + "," + "+");
+            }
+
+            Map.Navigate(queryAddress.ToString());
         }
 
         private void btnStop_Click(object sender, EventArgs e)
@@ -85,6 +124,16 @@ namespace GROUP3_CRE_PROJECT
             sre.RecognizeAsyncStop();
             btnStart.Enabled = true;
             btnStop.Enabled = false;
+        }
+
+        private void Map_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+
+        }
+
+        private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

@@ -30,15 +30,6 @@ namespace GROUP3_CRE_PROJECT
 
         Choices cmdOptions = new Choices(new string[] {"hello","Hello","how about you","what is the current time","open chrome"
             ,"close","input","michigan","south","field"});
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
@@ -72,23 +63,43 @@ namespace GROUP3_CRE_PROJECT
                 case "Hello":
                     ss.SpeakAsync("Hi, how are you?");
                     break;
-                case "How about you":
+                case "hello":
+                    ss.SpeakAsync("Hi, how are you?");
+                    break;
+                case "how about you":
                     ss.SpeakAsync("I am doing great");
                     break;
-                case "What time is it":
+                case "what time is it":
                     ss.SpeakAsync("current time is " + DateTime.Now.ToLongTimeString());
                     break;
-                case "Open chrome":
+                case "open chrome":
                     Process.Start("chrome", "https://www.google.com/");
                     break;
+                case "routes me":
+                    Process.Start("chrome", "https://www.google.com/maps/search/google+maps/@42.5040261,-83.0301713,13z/data=!3m1!4b1");
+                    break;
+                case "route me":
+                    Process.Start("chrome", "https://www.google.com/maps/search/google+maps/@42.5040261,-83.0301713,13z/data=!3m1!4b1");
+                    break;
+                case "Route me":
+                    Process.Start("chrome", "https://www.google.com/maps/search/google+maps/@42.5040261,-83.0301713,13z/data=!3m1!4b1");
+                    break;
                 case "Routes me":
-                    Process.Start("https://www.google.com/", "https://www.google.com/maps/search/google+maps/@42.5040261,-83.0301713,13z/data=!3m1!4b1");
+                    Process.Start("chrome", "https://www.google.com/maps/search/google+maps/@42.5040261,-83.0301713,13z/data=!3m1!4b1");
                     break;
                 case "Close":
                     Application.Exit();
                     break;
-                case "Clear":
+                case "close":
+                    Application.Exit();
+                    break;
+                case "clear":
                     textBox1.Clear();
+                    textBox2.Clear();
+                    textBox3.Clear();
+                    break;
+                case "inputs":
+                    ss.SpeakAsync("Enter your City");
                     break;
                 case "input":
                     ss.SpeakAsync("Enter your City");
@@ -100,13 +111,16 @@ namespace GROUP3_CRE_PROJECT
                     textBox1.Clear();
                     textBox2.Text = "Southfield";
                     ss.SpeakAsync("Enter your State");
-                    break;
+                    break;      
                 case "Michigan":
                     textBox1.Clear();
                     textBox3.Text = "Michigan";
                     break;
-                case "stop":
+                case "Stop":
                     btnStop_Click(sender,e);
+                    break;
+                case "stop":
+                    btnStop_Click(sender, e);
                     break;
             }
             textBox1.Text += e.Result.Text.ToString() + Environment.NewLine;
@@ -132,6 +146,15 @@ namespace GROUP3_CRE_PROJECT
         }
 
         private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
         }

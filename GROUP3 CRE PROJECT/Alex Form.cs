@@ -22,11 +22,14 @@ namespace GROUP3_CRE_PROJECT
         SpeechRecognitionEngine sre = new SpeechRecognitionEngine();
         Grammar gr = new DictationGrammar();
         Choices clist;
+        int count = 0;
         public Form1()
         {
             InitializeComponent();
         }
 
+        Choices cmdOptions = new Choices(new string[] {"hello","Hello","how about you","what is the current time","open chrome"
+            ,"close"});
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -41,7 +44,7 @@ namespace GROUP3_CRE_PROJECT
         {
             // Start (Button_Click)
             btnStart.Enabled = false;
-            btnStop.Enabled = true;            
+            btnStop.Enabled = true;           
 
             try
             {
@@ -58,14 +61,17 @@ namespace GROUP3_CRE_PROJECT
         }
 
         private void sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
-        {
+        {           
             switch (e.Result.Text.ToString())
             {
-                case "hello":
-                    ss.SpeakAsync("Hello Alex");
+                case "Hello":
+                    ss.SpeakAsync("Hi, how are you?");
                     break;
-                case "how are you":
-                    ss.SpeakAsync("I am doing great Alex, how about you");
+                case "hello":
+                    ss.SpeakAsync("Hi, how are you?");
+                    break;
+                case "how about you":
+                    ss.SpeakAsync("I am doing great Alex");
                     break;
                 case "what is the current time":
                     ss.SpeakAsync("current time is " + DateTime.Now.ToLongTimeString());
@@ -73,15 +79,25 @@ namespace GROUP3_CRE_PROJECT
                 case "open chrome":
                     Process.Start("chrome", "https://www.google.com/");
                     break;
+                case "routes me":
+                    Process.Start("https://www.google.com/", "https://www.google.com/maps/search/google+maps/@42.5040261,-83.0301713,13z/data=!3m1!4b1");
+                    break;
                 case "close":
                     Application.Exit();
                     break;
             }
             textBox1.Text += e.Result.Text.ToString() + Environment.NewLine;
+            count++;
+            if (count == 12)
+            {
+                textBox1.Clear();
+                count = 0;
+            }
         }
 
         private void btnStop_Click(object sender, EventArgs e)
         {
+            textBox1.Clear();
             sre.RecognizeAsyncStop();
             btnStart.Enabled = true;
             btnStop.Enabled = false;

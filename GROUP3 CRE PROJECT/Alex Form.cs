@@ -29,7 +29,7 @@ namespace GROUP3_CRE_PROJECT
         }
 
         Choices cmdOptions = new Choices(new string[] {"hello","Hello","how about you","what is the current time","open chrome"
-            ,"close"});
+            ,"close","input","michigan","south","field"});
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -61,46 +61,79 @@ namespace GROUP3_CRE_PROJECT
         }
 
         private void sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
-        {           
+        {
+            if (count == 1)
+            {
+                textBox1.Clear();
+                count = 0;
+            }
             switch (e.Result.Text.ToString())
             {
                 case "Hello":
                     ss.SpeakAsync("Hi, how are you?");
                     break;
-                case "hello":
-                    ss.SpeakAsync("Hi, how are you?");
+                case "How about you":
+                    ss.SpeakAsync("I am doing great");
                     break;
-                case "how about you":
-                    ss.SpeakAsync("I am doing great Alex");
-                    break;
-                case "what is the current time":
+                case "What time is it":
                     ss.SpeakAsync("current time is " + DateTime.Now.ToLongTimeString());
                     break;
-                case "open chrome":
+                case "Open chrome":
                     Process.Start("chrome", "https://www.google.com/");
                     break;
-                case "routes me":
+                case "Routes me":
                     Process.Start("https://www.google.com/", "https://www.google.com/maps/search/google+maps/@42.5040261,-83.0301713,13z/data=!3m1!4b1");
                     break;
-                case "close":
+                case "Close":
                     Application.Exit();
+                    break;
+                case "Clear":
+                    textBox1.Clear();
+                    break;
+                case "input":
+                    ss.SpeakAsync("Enter your City");
+                    break;
+                case "Inputs":
+                    ss.SpeakAsync("Enter your City");
+                    break;
+                case "Southfield":
+                    textBox1.Clear();
+                    textBox2.Text = "Southfield";
+                    ss.SpeakAsync("Enter your State");
+                    break;
+                case "Michigan":
+                    textBox1.Clear();
+                    textBox3.Text = "Michigan";
+                    break;
+                case "stop":
+                    btnStop_Click(sender,e);
                     break;
             }
             textBox1.Text += e.Result.Text.ToString() + Environment.NewLine;
+          
             count++;
-            if (count == 12)
-            {
-                textBox1.Clear();
-                count = 0;
-            }
         }
 
         private void btnStop_Click(object sender, EventArgs e)
         {
             textBox1.Clear();
             sre.RecognizeAsyncStop();
-            btnStart.Enabled = true;
-            btnStop.Enabled = false;
+            Application.Exit();
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
